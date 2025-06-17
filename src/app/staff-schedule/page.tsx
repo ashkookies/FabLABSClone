@@ -1,4 +1,4 @@
-// src/app/staff-schedule/page.tsx - Revised to use lab reservation components
+// src/app/staff-schedule/page.tsx - Fixed interface definition
 
 'use client';
 
@@ -34,7 +34,7 @@ interface DayInfo {
   endTime: string | null;
 }
 
-// Staff reservation form data - same structure as student EVC but with staff defaults
+// Staff reservation form data - Fixed to match LabReservationFormData exactly
 interface StaffReservationFormData {
   days: DayInfo[];
   syncTimes: boolean;
@@ -56,12 +56,12 @@ interface StaffReservationFormData {
   NeededMaterials: Material[];
   Students: Student[];   // Empty array for staff
   
-  // Additional fields
+  // Additional fields - FIXED: Made required string properties to match LabReservationFormData
   serviceLinks?: {[service: string]: string};
   Remarks?: string;
   Equipment?: string[] | string;
   Tools?: string;
-  BulkofCommodity?: string;
+  BulkofCommodity: string;  // FIXED: Changed from string | undefined to string
   
   [key: string]: any;
 }
@@ -89,6 +89,7 @@ export default function StaffSchedule() {
     
     serviceLinks: {},
     Remarks: '',
+    BulkofCommodity: '', // FIXED: Initialize as empty string instead of undefined
   });
   
   const [isLoading, setIsLoading] = useState(false);
