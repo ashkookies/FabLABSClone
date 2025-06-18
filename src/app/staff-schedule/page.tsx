@@ -41,27 +41,27 @@ interface StaffReservationFormData {
   unifiedStartTime: string | null;
   unifiedEndTime: string | null;
 
-  // Lab reservation fields - staff will use "N/A" defaults
+  // Lab reservation fields
   ProductsManufactured: string | string[];
   ControlNo?: number;
-  LvlSec: string;        // "N/A" for staff
-  NoofStudents: number;  // 0 for staff
-  Subject: string;       // "N/A" for staff  
-  Teacher: string;       // "N/A" for staff
-  TeacherEmail: string;  // "N/A" for staff
-  Topic: string;         // "N/A" for staff
-  SchoolYear: number;    // Current year for staff
+  LvlSec: string;
+  NoofStudents: number;
+  Subject: string;
+  Teacher: string;
+  TeacherEmail: string;
+  Topic: string;
+  SchoolYear: number;
   
   // Equipment and materials
   NeededMaterials: Material[];
-  Students: Student[];   // Empty array for staff
+  Students: Student[];
   
-  // Additional fields - FIXED: Made required string properties to match LabReservationFormData
-  serviceLinks?: {[service: string]: string};
-  Remarks?: string;
-  Equipment?: string[] | string;
-  Tools?: string;
-  BulkofCommodity: string;  // FIXED: Changed from string | undefined to string
+  // Additional fields - all required
+  serviceLinks: {[service: string]: string};
+  Remarks: string;
+  Equipment: string[] | string;
+  Tools: string;  // Changed from optional to required
+  BulkofCommodity: string;
   
   [key: string]: any;
 }
@@ -85,11 +85,13 @@ export default function StaffSchedule() {
     SchoolYear: new Date().getFullYear(),
     
     NeededMaterials: [],
-    Students: [], // Empty for staff
+    Students: [],
     
     serviceLinks: {},
     Remarks: '',
-    BulkofCommodity: '', // FIXED: Initialize as empty string instead of undefined
+    Equipment: [],
+    Tools: '', // Initialize as empty string
+    BulkofCommodity: '',
   });
   
   const [isLoading, setIsLoading] = useState(false);
